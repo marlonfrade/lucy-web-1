@@ -1,18 +1,23 @@
 "use client";
 
-import axios from "axios";
-import * as z from "zod";
-import Heading from "@/components/heading";
-import { MessageSquare } from "lucide-react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { formSchema } from "./constants";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
+import { useRouter } from "next/navigation";
+
+import Heading from "@/components/heading";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
+import { Empty } from "@/components/empty";
+import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
+
+import { formSchema } from "./constants";
+
+import { MessageSquare } from "lucide-react";
+
+import axios from "axios";
+import * as z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { ChatCompletionRequestMessage } from "openai";
-import { useState } from "react";
 
 const ConversationPage = () => {
   const router = useRouter();
@@ -91,7 +96,7 @@ const ConversationPage = () => {
           </Form>
         </div>
         <div className="mt-4 space-y-4">
-          {messages.length === 0 && !isLoading && <div>Empty</div>}
+          {messages.length === 0 && !isLoading && <Empty />}
           <div className="flex flex-col-reverse gap-y-4">
             {messages.map((message) => (
               <div key={message.content} className="">
