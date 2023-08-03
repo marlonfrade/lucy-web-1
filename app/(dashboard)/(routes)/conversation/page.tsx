@@ -1,5 +1,10 @@
 "use client";
 
+import axios from "axios";
+import * as z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { ChatCompletionRequestMessage } from "openai";
+
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
@@ -8,16 +13,14 @@ import { Heading } from "@/components/heading";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Empty } from "@/components/empty";
+import { Loader } from "@/components/loader";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 
 import { formSchema } from "./constants";
 
 import { MessageSquare } from "lucide-react";
 
-import axios from "axios";
-import * as z from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { ChatCompletionRequestMessage } from "openai";
+import { cn } from "@/lib/utils";
 
 const ConversationPage = () => {
   const router = useRouter();
@@ -96,12 +99,25 @@ const ConversationPage = () => {
           </Form>
         </div>
         <div className="mt-4 space-y-4">
+          {isLoading && (
+            <div className="mx-auto flex w-full items-center justify-center rounded-lg bg-violet-500/10 p-8">
+              <Loader />
+            </div>
+          )}
           {messages.length === 0 && !isLoading && (
             <Empty label="Qual sua dúvida ?" />
           )}
           <div className="flex flex-col-reverse gap-y-4">
             {messages.map((message) => (
-              <div key={message.content} className="">
+              <div
+                key={message.content}
+                className={cn(
+                  "flex w-full items-start gap-x-8 rounded-lg p-8",
+                  message.role === "user"
+                    ? "border border-black/10 bg-white"
+                    : "bg-muted",
+                )}
+              >
                 {message.content}
               </div>
             ))}
