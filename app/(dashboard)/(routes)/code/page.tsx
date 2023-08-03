@@ -8,6 +8,7 @@ import { ChatCompletionRequestMessage } from "openai";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
+import ReactMarkdown from "react-markdown";
 
 import { Heading } from "@/components/heading";
 import { Input } from "@/components/ui/input";
@@ -121,7 +122,24 @@ const CodePage = () => {
                 )}
               >
                 {message.role === "user" ? <UserAvatar /> : <LucyAvatar />}
-                <p className="text-sm ">{message.content}</p>
+                <ReactMarkdown
+                  components={{
+                    pre: ({ node, ...props }) => (
+                      <div className="my-2 w-full overflow-auto rounded-lg bg-violet-500/10 p-2">
+                        <pre {...props} />
+                      </div>
+                    ),
+                    code: ({ node, ...props }) => (
+                      <code
+                        className="rounded-lg bg-violet-500/10 p-1"
+                        {...props}
+                      />
+                    ),
+                  }}
+                  className="overflow-hidden text-sm leading-7"
+                >
+                  {message.content || ""}
+                </ReactMarkdown>
               </div>
             ))}
           </div>
