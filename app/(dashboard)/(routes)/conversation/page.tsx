@@ -96,7 +96,9 @@ const ConversationPage = () => {
           </Form>
         </div>
         <div className="mt-4 space-y-4">
-          {messages.length === 0 && !isLoading && <Empty />}
+          {messages.length === 0 && !isLoading && (
+            <Empty label="Qual sua dúvida ?" />
+          )}
           <div className="flex flex-col-reverse gap-y-4">
             {messages.map((message) => (
               <div key={message.content} className="">
