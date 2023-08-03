@@ -21,6 +21,8 @@ import { formSchema } from "./constants";
 import { MessageSquare } from "lucide-react";
 
 import { cn } from "@/lib/utils";
+import { UserAvatar } from "@/components/user-avatar";
+import { LucyAvatar } from "@/components/lucy-avatar";
 
 const ConversationPage = () => {
   const router = useRouter();
@@ -118,7 +120,8 @@ const ConversationPage = () => {
                     : "bg-muted",
                 )}
               >
-                {message.content}
+                {message.role === "user" ? <UserAvatar /> : <LucyAvatar />}
+                <p className="text-sm ">{message.content}</p>
               </div>
             ))}
           </div>
