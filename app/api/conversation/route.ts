@@ -11,7 +11,7 @@ const openai = new OpenAIApi(configuration);
 export async function POST(req: Request) {
   try {
     const { userId } = useAuth();
-    const body = req.json();
+    const body = await req.json();
     const { messages } = body;
 
     if (!userId) {
