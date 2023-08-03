@@ -17,6 +17,9 @@ export const Empty = ({ label }: EmptyProps) => {
       case "/code":
         return <Image alt="empty code" fill src="/code-empty.png" />;
 
+      case "/image":
+        return <Image alt="empty image" fill src="/image-empty.png" />;
+
       default:
         break;
     }
