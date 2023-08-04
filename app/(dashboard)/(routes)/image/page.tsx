@@ -24,9 +24,11 @@ import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 
 import { amountOptions, formSchema, resolutionOptions } from "./constants";
 
-import { ImageIcon } from "lucide-react";
+import { Download, ImageIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
+import { Card, CardFooter } from "@/components/ui/card";
+import Image from "next/image";
 
 const ImagePage = () => {
   const router = useRouter();
@@ -164,7 +166,25 @@ const ImagePage = () => {
           {images.length === 0 && !isLoading && (
             <Empty label="Qual texto você quer transformar em imagem?" />
           )}
-          <div>Images will be rendered here</div>
+          <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            {images.map((src) => (
+              <Card key={src} className="overflow-hidden rounded-lg">
+                <div className="relative aspect-square">
+                  <Image alt="Imagem gerada por Lucy" fill src={src} />
+                </div>
+                <CardFooter className="p-2">
+                  <Button
+                    onClick={() => window.open(src)}
+                    variant="secondary"
+                    className="w-full"
+                  >
+                    <Download className="mr-2 h-4 w-4" />
+                    Baixar
+                  </Button>
+                </CardFooter>
+              </Card>
+            ))}
+          </div>
         </div>
       </div>
     </div>
