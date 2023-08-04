@@ -32,6 +32,10 @@ export const Empty = ({ label }: EmptyProps) => {
         return (
           <Image alt="empty music" fill src="/music-empty.png" key={pathname} />
         );
+      case "/video":
+        return (
+          <Image alt="empty video" fill src="/video-empty.png" key={pathname} />
+        );
 
       default:
         break;
