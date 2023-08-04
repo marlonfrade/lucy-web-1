@@ -3,7 +3,6 @@
 import axios from "axios";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ChatCompletionRequestMessage } from "openai";
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
