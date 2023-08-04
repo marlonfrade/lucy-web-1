@@ -12,13 +12,26 @@ export const Empty = ({ label }: EmptyProps) => {
     switch (pathname) {
       case "/conversation":
         return (
-          <Image alt="empty conversation" fill src="/conversation-empty.png" />
+          <Image
+            alt="empty conversation"
+            fill
+            src="/conversation-empty.png"
+            key={pathname}
+          />
         );
       case "/code":
-        return <Image alt="empty code" fill src="/code-empty.png" />;
+        return (
+          <Image alt="empty code" fill src="/code-empty.png" key={pathname} />
+        );
 
       case "/image":
-        return <Image alt="empty image" fill src="/image-empty.png" />;
+        return (
+          <Image alt="empty image" fill src="/image-empty.png" key={pathname} />
+        );
+      case "/music":
+        return (
+          <Image alt="empty music" fill src="/music-empty.png" key={pathname} />
+        );
 
       default:
         break;
