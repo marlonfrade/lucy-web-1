@@ -42,7 +42,7 @@ const SidebarRoutes = [
     href: "/image",
   },
   {
-    label: "Resumo de Vídeos",
+    label: "Gerar Vídeos",
     icon: VideoIcon,
     color: "text-orange-700",
     href: "/video",
