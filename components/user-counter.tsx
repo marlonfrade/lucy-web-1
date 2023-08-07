@@ -5,12 +5,14 @@ import { Progress } from "@/components/ui/progress";
 import { MAX_FREE_COUNTS } from "@/constants";
 import { Button } from "@/components/ui/button";
 import { BadgeCheck } from "lucide-react";
+import { useProModal } from "@/hooks/use-pro-modal";
 
 interface UserCounterProps {
   apiLimitCount: number;
 }
 
 const UserCounter = ({ apiLimitCount = 0 }: UserCounterProps) => {
+  const proModal = useProModal();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -34,7 +36,11 @@ const UserCounter = ({ apiLimitCount = 0 }: UserCounterProps) => {
               value={(apiLimitCount / MAX_FREE_COUNTS) * 100}
             />
           </div>
-          <Button className="w-full" variant="premium">
+          <Button
+            onClick={proModal.onOpen}
+            className="w-full"
+            variant="premium"
+          >
             Adquirir Lucy Pro
             <BadgeCheck className="ml-2 h-4 w-4" />
           </Button>
