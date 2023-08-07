@@ -16,6 +16,8 @@ import {
   VideoIcon,
 } from "lucide-react";
 
+import UserCounter from "@/components/user-counter";
+
 // create a variant font Montserrat for Brand
 const montserrat = Montserrat({
   weight: "600",
@@ -66,7 +68,11 @@ const SidebarRoutes = [
   },
 ];
 
-const Sidebar = () => {
+interface SidebarProps {
+  apiLimitCount: number;
+}
+
+const Sidebar = ({ apiLimitCount = 0 }: SidebarProps) => {
   const pathname = usePathname();
   return (
     <div className="flex h-full flex-col space-y-4 bg-[#111827] py-4 text-white">
@@ -99,6 +105,7 @@ const Sidebar = () => {
           ))}
         </div>
       </div>
+      <UserCounter apiLimitCount={apiLimitCount} />
     </div>
   );
 };
