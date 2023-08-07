@@ -63,6 +63,5 @@ export async function GET() {
   } catch (error: any) {
     console.log("[STRIPE_ERROR]", error);
     return new NextResponse("Erro Interno", { status: 500 });
-  } finally {
   }
 }
