@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import { ClerkProvider as AuthProvider } from "@clerk/nextjs";
 import { ptBR } from "@clerk/localizations";
 import { ModalProvider } from "@/components/modal-provider";
+import { ToasterProvider } from "@/components/toast-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,6 +24,7 @@ export default function RootLayout({
       <html lang="pt-BR">
         <body className={inter.className}>
           <ModalProvider />
+          <ToasterProvider />
           {children}
         </body>
       </html>
