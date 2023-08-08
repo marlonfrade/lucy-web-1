@@ -1,18 +1,12 @@
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { LandingContent } from "@/components/landing/content";
+import LandingHero from "@/components/landing/hero";
+import { LandingNavbar } from "@/components/landing/navbar";
 
-export interface ILandingPageProps {}
-
-const LandingPage = (props: ILandingPageProps) => {
+const LandingPage = () => {
   return (
-    <div>
-      Landing Page(Unprotected)
-      <Link href="/sign-in">
-        <Button>Fazer Login</Button>
-      </Link>
-      <Link href="/sign-up">
-        <Button>Fazer Cadastro</Button>
-      </Link>
+    <div className="h-full">
+      <LandingNavbar />
+      <LandingHero />
     </div>
   );
 };
