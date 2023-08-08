@@ -17,6 +17,7 @@ import { Card } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { BadgeCheck, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { toast } from "react-hot-toast";
 
 export const ProModal = () => {
   const proModal = useProModal();
@@ -30,6 +31,7 @@ export const ProModal = () => {
       window.location.href = response.data.url;
     } catch (error) {
       console.log(error, "STRIPE_CLIENT_ERROR");
+      toast.error("Ocorreu um erro, tente novamente");
     } finally {
       setLoading(false);
     }
