@@ -2,7 +2,7 @@ import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 import { Configuration, OpenAIApi } from "openai";
 
-import { increaseApiLimit, checkApiLimit } from "@/lib/api-limit";
+import { incrementApiLimit, checkApiLimit } from "@/lib/api-limit";
 import { checkSubscription } from "@/lib/subscription";
 
 const configuration = new Configuration({
@@ -52,9 +52,9 @@ export async function POST(req: Request) {
       size: resolution,
     });
 
-    // if (!isPro) {
-    //   await increaseApiLimit();
-    // }
+    if (!isPro) {
+      await incrementApiLimit();
+    }
 
     return NextResponse.json(response.data.data);
   } catch (error) {
