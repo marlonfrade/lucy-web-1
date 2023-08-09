@@ -7,7 +7,7 @@ import { checkSubscription } from "@/lib/subscription";
 import Replicate from "replicate";
 
 const replicate = new Replicate({
-  auth: process.env.REPLICATE_API_TOKEN!,
+  auth: process.env.REPLICATE_API_KEY!,
 });
 
 export async function POST(req: Request) {
