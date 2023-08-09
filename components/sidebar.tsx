@@ -3,18 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { usePathname } from "next/navigation";
+import { sidebarRoutes } from "@/constants";
 
 import { Montserrat } from "next/font/google";
 import { cn } from "@/lib/utils";
-import {
-  Code,
-  ImageIcon,
-  LayoutDashboard,
-  MessageSquare,
-  Music,
-  Settings,
-  VideoIcon,
-} from "lucide-react";
 
 import UserCounter from "@/components/user-counter";
 
@@ -23,50 +15,6 @@ const montserrat = Montserrat({
   weight: "600",
   subsets: ["latin"],
 });
-
-const SidebarRoutes = [
-  {
-    label: "Dashboard",
-    icon: LayoutDashboard,
-    href: "/dashboard",
-    color: "text-sky-500",
-  },
-  {
-    label: "Conversar com Lucy",
-    icon: MessageSquare,
-    href: "/conversation",
-    color: "text-violet-500",
-  },
-  {
-    label: "Gerar Imagens",
-    icon: ImageIcon,
-    color: "text-pink-700",
-    href: "/image",
-  },
-  {
-    label: "Gerar Vídeos",
-    icon: VideoIcon,
-    color: "text-orange-700",
-    href: "/video",
-  },
-  {
-    label: "Gerar Música",
-    icon: Music,
-    color: "text-emerald-500",
-    href: "/music",
-  },
-  {
-    label: "Gerar Código",
-    icon: Code,
-    color: "text-green-700",
-    href: "/code",
-  },
-  {
-    label: "Configurações",
-    icon: Settings,
-    href: "/settings",
-  },
-];
 
 interface SidebarProps {
   apiLimitCount: number;
@@ -87,7 +35,7 @@ const Sidebar = ({ apiLimitCount = 0, isPro = false }: SidebarProps) => {
           </h1>
         </Link>
         <div className="space-y-1">
-          {SidebarRoutes.map((route) => (
+          {sidebarRoutes.map((route) => (
             <Link
               href={route.href}
               key={route.href}
