@@ -1,10 +1,9 @@
-import { checkApiLimit, increaseApiLimit } from "@/lib/api-limit";
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
 import { Configuration, OpenAIApi } from "openai";
 
-// import { increaseApiLimit, checkApiLimit } from "@/lib/api-limit";
-// import { checkSubscription } from "@/lib/subscription";
+import { increaseApiLimit, checkApiLimit } from "@/lib/api-limit";
+import { checkSubscription } from "@/lib/subscription";
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
@@ -30,23 +29,23 @@ export async function POST(req: Request) {
       return new NextResponse("Mensagem vazia", { status: 400 });
     }
 
-    // const freeTrial = await checkApiLimit();
-    // const isPro = await checkSubscription();
+    const freeTrial = await checkApiLimit();
+    const isPro = await checkSubscription();
 
-    // if (!freeTrial && !isPro) {
-    //   return new NextResponse("Limite de uso da Lucy atingido", {
-    //     status: 403,
-    //   });
-    // }
+    if (!freeTrial && !isPro) {
+      return new NextResponse("Limite de uso da Lucy atingido", {
+        status: 403,
+      });
+    }
 
     const response = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
       messages,
     });
 
-    // if (!isPro) {
-    //   await increaseApiLimit();
-    // }
+    if (!isPro) {
+      await increaseApiLimit();
+    }
 
     return NextResponse.json(response.data.choices[0].message);
   } catch (error) {
