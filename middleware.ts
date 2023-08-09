@@ -5,7 +5,7 @@ import { authMiddleware } from "@clerk/nextjs";
 // See https://clerk.com/docs/nextjs/middleware for more information about configuring your middleware
 export default authMiddleware({
   // add the landing page to unprotected
-  publicRoutes: ["/", "/api/webhook"],
+  publicRoutes: ["/", "/api/webhook", "/conversation"],
 });
 
 export const config = {
