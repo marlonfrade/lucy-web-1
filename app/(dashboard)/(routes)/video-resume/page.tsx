@@ -22,11 +22,13 @@ import { useProModal } from "@/hooks/use-pro-modal";
 import { toast } from "react-hot-toast";
 import { cn } from "@/lib/utils";
 import { LucyAvatar } from "@/components/lucy-avatar";
+import Image from "next/image";
 
 const VideoResumePage = () => {
   const proModal = useProModal();
   const router = useRouter();
   const [resume, setResume] = useState<string>("");
+  const [thumbnail, setThumbnail] = useState<string>("");
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -42,10 +44,21 @@ const VideoResumePage = () => {
     try {
       if (resume.length > 0) {
         setResume("");
+        setThumbnail("");
       }
+
+      toast.promise(axios.post("/api/video-resume", values), {
+        loading: "Lucy está assistindo o vídeo...",
+        success: "Resumido com sucesso",
+        error: "Ocorreu um erro, tente novamente",
+      });
       const response = await axios.post("/api/video-resume", values);
 
-      setResume(response.data.data);
+      if (response.data.status === "success") {
+        setResume(response.data.data.message);
+        setThumbnail(response.data.data.thumbnail);
+      }
+
       console.log(response);
 
       form.reset();
@@ -127,10 +140,21 @@ const VideoResumePage = () => {
           )}
           <div className="flex flex-col-reverse gap-y-4">
             {resume.length > 1 && (
-              <div className="flex w-full items-start gap-x-8 rounded-lg border border-black/10 bg-white p-8">
-                <LucyAvatar />
-                <p className="text-sm ">{resume}</p>
-              </div>
+              <>
+                <div className="flex h-full w-full justify-center">
+                  <Image
+                    src={thumbnail}
+                    width={500}
+                    height={500}
+                    alt="video link banner"
+                    className="mt-2 rounded-lg"
+                  />
+                </div>
+                <div className="flex w-full items-start gap-x-8 rounded-lg border border-black/10 bg-white p-8">
+                  <LucyAvatar />
+                  <p className="text-sm ">{resume}</p>
+                </div>
+              </>
             )}
           </div>
         </div>
