@@ -18,7 +18,7 @@ import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 
 import { formSchema } from "./constants";
 
-import { MessageSquare } from "lucide-react";
+import { BrainCircuit } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { UserAvatar } from "@/components/user-avatar";
@@ -26,15 +26,10 @@ import { LucyAvatar } from "@/components/lucy-avatar";
 import { useProModal } from "@/hooks/use-pro-modal";
 import { toast } from "react-hot-toast";
 
-interface Message {
-  role: "user" | "assistant";
-  content: string;
-}
-
 const ConversationPage = () => {
   const proModal = useProModal();
   const router = useRouter();
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -47,24 +42,17 @@ const ConversationPage = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      const userMessage: Message = {
+      const userMessage: ChatCompletionRequestMessage = {
         role: "user",
         content: values.prompt,
       };
-
       const newMessages = [...messages, userMessage];
 
-      const response = await axios.post("/api/conversation", {
-        system: "",
+      const response = await axios.post("/api/lucygpt", {
         messages: newMessages,
-        temperature: 0.6,
       });
 
-      setMessages((current) => [
-        ...current,
-        userMessage,
-        { role: "assistant", content: response.data },
-      ]);
+      setMessages((current) => [...current, userMessage, response.data]);
       form.reset();
     } catch (error: any) {
       if (error?.response?.status === 403) {
@@ -80,9 +68,9 @@ const ConversationPage = () => {
   return (
     <div>
       <Heading
-        title="Conversar com Lucy"
-        description="Tire suas dúvidas com Lucy, fale agora no chat e obtenha sua resposta em tempo real."
-        icon={MessageSquare}
+        title="LucyGPT"
+        description="LucyGPT está aqui para lhe ajudar utilizando o GPT-4 para fornecer respostas."
+        icon={BrainCircuit}
         iconColor="text-violet-500"
         bgColor="bg-violet-500/10"
       />
@@ -102,7 +90,7 @@ const ConversationPage = () => {
                       <Input
                         className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent"
                         disabled={isLoading}
-                        placeholder="Lucy, qual o sentido da vida?"
+                        placeholder="Quantos segundos tem em uma hora?"
                         {...field}
                       />
                     </FormControl>
@@ -125,7 +113,7 @@ const ConversationPage = () => {
             </div>
           )}
           {messages.length === 0 && !isLoading && (
-            <Empty label="Converse com Lucy e descubra toda a magia da Inteligência Artificial Personalizada" />
+            <Empty label="Como a LucyGPT pode te ajudar hoje ?" />
           )}
           <div className="flex flex-col-reverse gap-y-4">
             {messages.map((message) => (

@@ -36,13 +36,19 @@ const UserCounter = ({
       <Card className="border-0 bg-white/10">
         <CardContent className="py-6">
           <div className="mb-4 space-y-2 text-center text-sm text-white">
-            <p>
+            {/* <p>
               {apiLimitCount}/{MAX_FREE_COUNTS} Criação de áudios e vídeos
               gratuitos
+            </p> */}
+            <p>
+              {" "}
+              <span className="text-lg">&#x221E;</span> Criações com Lucy
+              Gratuita! Aproveite a versão FREE
             </p>
             <Progress
               className="h-3"
-              value={(apiLimitCount / MAX_FREE_COUNTS) * 100}
+              // value={(apiLimitCount / MAX_FREE_COUNTS) * 100}
+              value={100}
             />
           </div>
           <Button

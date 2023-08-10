@@ -26,7 +26,7 @@ import { LucyAvatar } from "@/components/lucy-avatar";
 const VideoResumePage = () => {
   const proModal = useProModal();
   const router = useRouter();
-  const [messages, setMessages] = useState<string[]>([]);
+  const [messages, setMessages] = useState<string>("");
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -40,6 +40,7 @@ const VideoResumePage = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
+      setMessages("");
       const response = await axios.post("/api/video-resume", values);
 
       setMessages(response.data.data);

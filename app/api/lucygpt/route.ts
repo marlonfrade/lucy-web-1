@@ -1,33 +1,32 @@
-import axios from "axios";
 import { auth } from "@clerk/nextjs";
 import { NextResponse } from "next/server";
+import { Configuration, OpenAIApi } from "openai";
 
 import { incrementApiLimit, checkApiLimit } from "@/lib/api-limit";
 import { checkSubscription } from "@/lib/subscription";
 
+const configuration = new Configuration({
+  apiKey: process.env.OPENAI_API_KEY,
+});
+
+const openai = new OpenAIApi(configuration);
+
 export async function POST(req: Request) {
   try {
-    const token = process.env.RESUME_VIDEO_BEARER_TOKEN!;
-
     const { userId } = auth();
-
     const body = await req.json();
-    const { link, instruction } = body;
-
-    const config = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
+    const { messages } = body;
 
     if (!userId) {
       return new NextResponse("Não autorizado", { status: 401 });
     }
 
-    if (!instruction || !link) {
-      return new NextResponse("A instrução e link deve ser preenchido", {
-        status: 401,
-      });
+    if (!configuration.apiKey) {
+      return new NextResponse("Chave OPENAI não configurada", { status: 500 });
+    }
+
+    if (!messages) {
+      return new NextResponse("Mensagem vazia", { status: 400 });
     }
 
     const freeTrial = await checkApiLimit();
@@ -39,19 +38,18 @@ export async function POST(req: Request) {
       });
     }
 
-    const response = await axios.post(
-      "http://204.48.19.221:3000/api/youtube/video/gpt/analysis",
-      body,
-      config,
-    );
+    const response = await openai.createChatCompletion({
+      model: "gpt-3.5-turbo",
+      messages,
+    });
 
     // if (!isPro) {
     //   await incrementApiLimit();
     // }
 
-    return NextResponse.json(response.data);
+    return NextResponse.json(response.data.choices[0].message);
   } catch (error) {
-    console.log("[VIDEO_ERROR]", error);
+    console.log("[CONVERSATION_ERROR]", error);
     return new NextResponse("Erro interno", { status: 500 });
   }
 }

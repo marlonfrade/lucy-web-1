@@ -15,13 +15,31 @@ export const Empty = ({ label }: EmptyProps) => {
           <Image
             alt="empty conversation"
             fill
-            src="/conversation-empty.png"
+            src="/talk-empty.png"
             key={pathname}
           />
         );
       case "/code":
         return (
           <Image alt="empty code" fill src="/code-empty.png" key={pathname} />
+        );
+      case "/lucygpt":
+        return (
+          <Image
+            alt="empty code"
+            fill
+            src="/lucygpt-empty.png"
+            key={pathname}
+          />
+        );
+      case "/video-resume":
+        return (
+          <Image
+            alt="empty code"
+            fill
+            src="/video-resume-empty.png"
+            key={pathname}
+          />
         );
 
       case "/image":
