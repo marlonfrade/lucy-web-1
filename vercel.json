@@ -1,30 +1,30 @@
 {
   "functions": {
-    "app/api/conversation/route.ts": {
+    "app/api/conversation": {
       "memory": 3008,
       "maxDuration": 60
     },
-    "app/api/video-resume/route.ts": {
+    "app/api/video-resume": {
       "memory": 3008,
       "maxDuration": 60
     },
-    "app/api/music/route.ts": {
+    "app/api/music": {
       "memory": 3008,
       "maxDuration": 60
     },
-    "app/api/video/route.ts": {
+    "app/api/video": {
       "memory": 3008,
       "maxDuration": 60
     },
-    "app/api/image/route.ts": {
+    "app/api/image": {
       "memory": 3008,
       "maxDuration": 60
     },
-    "app/api/code/route.ts": {
+    "app/api/code": {
       "memory": 3008,
       "maxDuration": 60
     },
-    "app/api/lucygpt/route.ts": {
+    "app/api/lucygpt": {
       "memory": 3008,
       "maxDuration": 60
     }
