@@ -26,7 +26,7 @@ import { LucyAvatar } from "@/components/lucy-avatar";
 const VideoResumePage = () => {
   const proModal = useProModal();
   const router = useRouter();
-  const [messages, setMessages] = useState<string>("");
+  const [resume, setResume] = useState<string>("");
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -40,10 +40,12 @@ const VideoResumePage = () => {
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     try {
-      setMessages("");
+      if (resume.length > 0) {
+        setResume("");
+      }
       const response = await axios.post("/api/video-resume", values);
 
-      setMessages(response.data.data);
+      setResume(response.data.data);
       console.log(response);
 
       form.reset();
@@ -120,14 +122,14 @@ const VideoResumePage = () => {
               <Loader />
             </div>
           )}
-          {messages.length === 0 && !isLoading && (
+          {resume.length === 0 && !isLoading && (
             <Empty label="Qual vídeo você quer resumir ?" />
           )}
           <div className="flex flex-col-reverse gap-y-4">
-            {messages.length > 1 && (
+            {resume.length > 1 && (
               <div className="flex w-full items-start gap-x-8 rounded-lg border border-black/10 bg-white p-8">
                 <LucyAvatar />
-                <p className="text-sm ">{messages}</p>
+                <p className="text-sm ">{resume}</p>
               </div>
             )}
           </div>
