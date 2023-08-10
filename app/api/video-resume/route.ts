@@ -45,6 +45,10 @@ export async function POST(req: Request) {
       config,
     );
 
+    if (response.status !== 200) {
+      return new NextResponse(response.data, { status: response.status });
+    }
+
     // if (!isPro) {
     //   await incrementApiLimit();
     // }
