@@ -24,7 +24,7 @@ interface SidebarProps {
 const Sidebar = ({ apiLimitCount = 0, isPro = false }: SidebarProps) => {
   const pathname = usePathname();
   return (
-    <div className="flex h-full flex-col space-y-4 bg-[#111827] py-4 text-white">
+    <div className="flex h-full flex-col space-y-4 bg-gray-800/50 py-4 text-white">
       <div className="flex-1 px-3 py-2">
         <Link href="/dashboard" className="mb-14 flex items-center pl-3">
           <div className="relative mr-4 h-20 w-20">
@@ -47,8 +47,21 @@ const Sidebar = ({ apiLimitCount = 0, isPro = false }: SidebarProps) => {
               )}
             >
               <div className="flex flex-1 items-center">
-                <route.icon className={cn("mr-3 h-5 w-5", route.color)} />
-                {route.label}
+                {route.icon ? (
+                  <>
+                    <route.icon className={cn("mr-3 h-5 w-5", route.color)} />
+                    {route.label}
+                  </>
+                ) : (
+                  <>
+                    <Image
+                      alt={route.label}
+                      src={route.image}
+                      className="mr-2 h-5 w-5 rounded-sm"
+                    />
+                    {route.label}
+                  </>
+                )}
               </div>
             </Link>
           ))}

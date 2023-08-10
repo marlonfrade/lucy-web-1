@@ -49,9 +49,17 @@ const CodePage = () => {
       };
       const newMessages = [...messages, userMessage];
 
-      const response = await axios.post("/api/code", {
+      const fecth = axios.post("/api/code", {
         messages: newMessages,
       });
+
+      toast.promise(fecth, {
+        loading: "Lucy está criando seu código...",
+        success: "Código criado com sucesso",
+        error: "Ocorreu um erro, tente novamente",
+      });
+
+      const response = await fecth;
 
       setMessages((current) => [...current, userMessage, response.data]);
       form.reset();

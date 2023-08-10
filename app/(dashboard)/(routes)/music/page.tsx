@@ -39,7 +39,15 @@ const MusicPage = () => {
     try {
       setMusic(undefined);
 
-      const response = await axios.post("/api/music", values);
+      const fecth = axios.post("/api/music", values);
+
+      toast.promise(fecth, {
+        loading: "Criando trilha sonora...",
+        success: "Trilha sonora criada com sucesso",
+        error: "Ocorreu um erro, tente novamente",
+      });
+
+      const response = await fecth;
 
       setMusic(response.data.audio);
 

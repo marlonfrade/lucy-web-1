@@ -52,7 +52,15 @@ const ImagePage = () => {
     try {
       setImages([]);
 
-      const response = await axios.post("/api/image", values);
+      const fecth = axios.post("/api/image", values);
+
+      toast.promise(fecth, {
+        loading: "Lucy está criando a imagem...",
+        success: "Imagem gerada com sucesso",
+        error: "Ocorreu um erro, tente novamente",
+      });
+
+      const response = await fecth;
       const urls = response.data.map((image: { url: string }) => image.url);
 
       setImages(urls);

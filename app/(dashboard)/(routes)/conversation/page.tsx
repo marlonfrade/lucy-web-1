@@ -54,11 +54,18 @@ const ConversationPage = () => {
 
       const newMessages = [...messages, userMessage];
 
-      const response = await axios.post("/api/conversation", {
+      const fecth = axios.post("/api/conversation", {
         system: "",
         messages: newMessages,
         temperature: 0.6,
       });
+      toast.promise(fecth, {
+        loading: "Lucy está criando sua resposta...",
+        success: "Mensagem enviada com sucesso",
+        error: "Ocorreu um erro, tente novamente",
+      });
+
+      const response = await fecth;
 
       setMessages((current) => [
         ...current,

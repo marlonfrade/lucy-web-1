@@ -39,7 +39,15 @@ const VideoPage = () => {
     try {
       setVideo(undefined);
 
-      const response = await axios.post("/api/video", values);
+      const fecth = axios.post("/api/video", values);
+
+      toast.promise(fecth, {
+        loading: "Criando vídeo...",
+        success: "Vídeo criado com sucesso",
+        error: "Ocorreu um erro, tente novamente",
+      });
+
+      const response = await fecth;
 
       setVideo(response.data[0]);
 

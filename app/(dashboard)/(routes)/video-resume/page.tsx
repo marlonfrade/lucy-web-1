@@ -47,12 +47,13 @@ const VideoResumePage = () => {
         setThumbnail("");
       }
 
-      toast.promise(axios.post("/api/video-resume", values), {
+      const fecth = axios.post("/api/video-resume", values);
+      toast.promise(fecth, {
         loading: "Lucy está assistindo o vídeo...",
         success: "Resumido com sucesso",
         error: "Ocorreu um erro, tente novamente",
       });
-      const response = await axios.post("/api/video-resume", values);
+      const response = await fecth;
 
       if (response.data.status === "success") {
         setResume(response.data.data.message);

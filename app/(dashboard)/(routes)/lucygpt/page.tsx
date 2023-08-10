@@ -48,9 +48,17 @@ const ConversationPage = () => {
       };
       const newMessages = [...messages, userMessage];
 
-      const response = await axios.post("/api/lucygpt", {
+      const fecth = axios.post("/api/lucygpt", {
         messages: newMessages,
       });
+
+      toast.promise(fecth, {
+        loading: "Lucy está usando o GPT-4...",
+        success: "Mensagem criada com sucesso",
+        error: "Ocorreu um erro, tente novamente",
+      });
+
+      const response = await fecth;
 
       setMessages((current) => [...current, userMessage, response.data]);
       form.reset();

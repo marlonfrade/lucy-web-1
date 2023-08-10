@@ -20,7 +20,7 @@ export const Loader = () => {
             fillRule="evenodd"
           />
         </svg>
-        <p className="text-sm text-muted-foreground">Lucy está pensando ...</p>
+        <p className="text-sm text-muted-foreground">carregando ...</p>
       </div>
     </div>
   );
