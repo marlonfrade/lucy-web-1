@@ -1,34 +1,32 @@
 {
-  "routes": {
-    "functions": {
-      "app/api/conversation": {
-        "memory": 3008,
-        "maxDuration": 60
-      },
-      "app/api/video-resume": {
-        "memory": 3008,
-        "maxDuration": 60
-      },
-      "app/api/music": {
-        "memory": 3008,
-        "maxDuration": 60
-      },
-      "app/api/video": {
-        "memory": 3008,
-        "maxDuration": 60
-      },
-      "app/api/image": {
-        "memory": 3008,
-        "maxDuration": 60
-      },
-      "app/api/code": {
-        "memory": 3008,
-        "maxDuration": 60
-      },
-      "app/api/lucygpt": {
-        "memory": 3008,
-        "maxDuration": 60
-      }
+  "functions": {
+    "app/api/conversation": {
+      "memory": 3008,
+      "maxDuration": 60
+    },
+    "app/api/video-resume": {
+      "memory": 3008,
+      "maxDuration": 60
+    },
+    "app/api/music": {
+      "memory": 3008,
+      "maxDuration": 60
+    },
+    "app/api/video": {
+      "memory": 3008,
+      "maxDuration": 60
+    },
+    "app/api/image": {
+      "memory": 3008,
+      "maxDuration": 60
+    },
+    "app/api/code": {
+      "memory": 3008,
+      "maxDuration": 60
+    },
+    "app/api/lucygpt": {
+      "memory": 3008,
+      "maxDuration": 60
     }
   }
 }
